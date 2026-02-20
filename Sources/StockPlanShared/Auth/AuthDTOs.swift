@@ -42,6 +42,9 @@ public struct AuthResponse: Codable, Sendable, Equatable {
     }
 }
 
+/// Compatibility alias for endpoint layers that use API-style response names.
+public typealias APIAuth = AuthResponse
+
 public struct AuthUserResponse: Codable, Sendable, Equatable {
     public let id: String
     public let email: String
