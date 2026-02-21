@@ -11,6 +11,22 @@ import Testing
     #expect(decoded == payload)
 }
 
+@Test func authRegisterRequestRoundTripJSON() throws {
+    let payload = AuthRegisterRequest(
+        username: "valid_user",
+        password: "Password123",
+        email: "user@example.com",
+        firstName: "Jane",
+        lastName: "Doe",
+        dateOfBirth: Date(timeIntervalSince1970: 946684800)
+    )
+
+    let encoded = try JSONEncoder().encode(payload)
+    let decoded = try JSONDecoder().decode(AuthRegisterRequest.self, from: encoded)
+
+    #expect(decoded == payload)
+}
+
 @Test func stockResponseRoundTripJSON() throws {
     let payload = StockResponse(
         id: "stock-id",
@@ -42,7 +58,12 @@ import Testing
         userId: UUID(uuidString: "00000000-0000-0000-0000-000000000001")!,
         expiresIn: 604800,
         refreshToken: "refresh-token",
-        refreshExpiresIn: 2592000
+        refreshExpiresIn: 2592000,
+        username: "valid_user",
+        email: "user@example.com",
+        firstName: "Jane",
+        lastName: "Doe",
+        dateOfBirth: Date(timeIntervalSince1970: 946684800)
     )
 
     let payload = APIEnvelope(success: true, data: auth, message: "ok")

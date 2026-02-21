@@ -1,12 +1,27 @@
 import Foundation
 
 public struct AuthRegisterRequest: Codable, Sendable, Equatable {
-    public let email: String
+    public let username: String
     public let password: String
+    public let email: String
+    public let firstName: String
+    public let lastName: String
+    public let dateOfBirth: Date
 
-    public init(email: String, password: String) {
-        self.email = email
+    public init(
+        username: String,
+        password: String,
+        email: String,
+        firstName: String,
+        lastName: String,
+        dateOfBirth: Date
+    ) {
+        self.username = username
         self.password = password
+        self.email = email
+        self.firstName = firstName
+        self.lastName = lastName
+        self.dateOfBirth = dateOfBirth
     }
 }
 
@@ -26,32 +41,63 @@ public struct AuthResponse: Codable, Sendable, Equatable {
     public let expiresIn: Int
     public let refreshToken: String
     public let refreshExpiresIn: Int
+    public let username: String
+    public let email: String
+    public let firstName: String
+    public let lastName: String
+    public let dateOfBirth: Date
 
     public init(
         token: String,
         userId: UUID,
         expiresIn: Int,
         refreshToken: String,
-        refreshExpiresIn: Int
+        refreshExpiresIn: Int,
+        username: String,
+        email: String,
+        firstName: String,
+        lastName: String,
+        dateOfBirth: Date
     ) {
         self.token = token
         self.userId = userId
         self.expiresIn = expiresIn
         self.refreshToken = refreshToken
         self.refreshExpiresIn = refreshExpiresIn
+        self.username = username
+        self.email = email
+        self.firstName = firstName
+        self.lastName = lastName
+        self.dateOfBirth = dateOfBirth
     }
 }
 
 /// Compatibility alias for endpoint layers that use API-style response names.
 public typealias APIAuth = AuthResponse
+public typealias AuthRegisterResponse = AuthResponse
 
 public struct AuthUserResponse: Codable, Sendable, Equatable {
     public let id: String
+    public let username: String
     public let email: String
+    public let firstName: String
+    public let lastName: String
+    public let dateOfBirth: Date
 
-    public init(id: String, email: String) {
+    public init(
+        id: String,
+        username: String,
+        email: String,
+        firstName: String,
+        lastName: String,
+        dateOfBirth: Date
+    ) {
         self.id = id
+        self.username = username
         self.email = email
+        self.firstName = firstName
+        self.lastName = lastName
+        self.dateOfBirth = dateOfBirth
     }
 }
 
