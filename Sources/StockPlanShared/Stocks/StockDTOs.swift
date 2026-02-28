@@ -24,7 +24,10 @@ public struct StockResponse: Codable, Sendable, Equatable {
     public let buyDate: String
     public let notes: String?
 
-    public init(id: String, symbol: String, shares: Double, buyPrice: Double, buyDate: String, notes: String?) {
+    public init(
+        id: String, symbol: String, shares: Double, buyPrice: Double, buyDate: String,
+        notes: String?
+    ) {
         self.id = id
         self.symbol = symbol
         self.shares = shares
@@ -179,5 +182,39 @@ public struct StockNews: Codable, Sendable, Equatable {
         self.title = title
         self.url = url
         self.date = date
+    }
+}
+
+// MARK: - Bulk Import
+
+public struct BulkStockRequest: Codable, Sendable, Equatable {
+    public let stocks: [StockRequest]
+
+    public init(stocks: [StockRequest]) {
+        self.stocks = stocks
+    }
+}
+
+public struct BulkStockResultItem: Codable, Sendable, Equatable {
+    public let index: Int
+    public let stock: StockResponse?
+    public let error: String?
+
+    public init(index: Int, stock: StockResponse? = nil, error: String? = nil) {
+        self.index = index
+        self.stock = stock
+        self.error = error
+    }
+}
+
+public struct BulkStockResponse: Codable, Sendable, Equatable {
+    public let created: Int
+    public let failed: Int
+    public let results: [BulkStockResultItem]
+
+    public init(created: Int, failed: Int, results: [BulkStockResultItem]) {
+        self.created = created
+        self.failed = failed
+        self.results = results
     }
 }
