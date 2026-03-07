@@ -119,3 +119,50 @@ import Testing
     #expect(decoded == payload)
     #expect(decoded.stocks.isEmpty)
 }
+
+@Test func userProfileResponseRoundTripJSON() throws {
+    let profile = UserProfile(
+        id: "user-id",
+        email: "user@example.com",
+        bio: "Investor",
+        avatarURL: URL(string: "https://example.com/avatar.png"),
+        bannerAvatarURL: URL(string: "https://example.com/banner.png"),
+        username: "investor_1",
+        firstName: "Jane",
+        lastName: "Doe"
+    )
+    let payload = GetUserProfileResponse(userProfile: profile)
+
+    let encoded = try JSONEncoder().encode(payload)
+    let decoded = try JSONDecoder().decode(GetUserProfileResponse.self, from: encoded)
+
+    #expect(decoded == payload)
+}
+
+@Test func updateUserProfileRequestRoundTripJSON() throws {
+    let profile = UserProfile(
+        id: "user-id",
+        email: "user@example.com",
+        bio: "Long-term investor",
+        avatarURL: nil,
+        bannerAvatarURL: nil,
+        username: "valueinvestor",
+        firstName: "John",
+        lastName: "Smith"
+    )
+    let payload = UpdateUserProfileRequest(userProfile: profile)
+
+    let encoded = try JSONEncoder().encode(payload)
+    let decoded = try JSONDecoder().decode(UpdateUserProfileRequest.self, from: encoded)
+
+    #expect(decoded == payload)
+}
+
+@Test func deleteUserProfileResponseRoundTripJSON() throws {
+    let payload = DeleteUserProfileResponse(success: true, message: "Profile deleted")
+
+    let encoded = try JSONEncoder().encode(payload)
+    let decoded = try JSONDecoder().decode(DeleteUserProfileResponse.self, from: encoded)
+
+    #expect(decoded == payload)
+}
