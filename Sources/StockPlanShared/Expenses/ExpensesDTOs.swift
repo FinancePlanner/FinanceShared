@@ -182,16 +182,30 @@ public struct RecurringTemplateResponse: Codable, Sendable, Equatable, Identifia
 public struct HouseholdPartnerProfileResponse: Codable, Sendable, Equatable {
     public let displayName: String?
 
-    public init(displayName: String? = nil) {
+    /// The household's default share of a shared item, as a percentage the user
+    /// keeps (so 40 means the partner covers 60%).
+    ///
+    /// `nil` means no default has been set, which is deliberately distinct from
+    /// `100`: clients seed a new shared item from this value and fall back to
+    /// 100 only when it is absent.
+    public let defaultUserSharePercent: Double?
+
+    public init(displayName: String? = nil, defaultUserSharePercent: Double? = nil) {
         self.displayName = displayName
+        self.defaultUserSharePercent = defaultUserSharePercent
     }
 }
 
 public struct HouseholdPartnerProfileRequest: Codable, Sendable, Equatable {
     public let displayName: String?
 
-    public init(displayName: String? = nil) {
+    /// See `HouseholdPartnerProfileResponse.defaultUserSharePercent`. Sending
+    /// `nil` clears the default rather than setting it to zero.
+    public let defaultUserSharePercent: Double?
+
+    public init(displayName: String? = nil, defaultUserSharePercent: Double? = nil) {
         self.displayName = displayName
+        self.defaultUserSharePercent = defaultUserSharePercent
     }
 }
 
