@@ -820,6 +820,9 @@ public enum TaxReportKind: String, Codable, Sendable, CaseIterable {
     case form8949 = "form_8949"
     case scheduleDSummary = "schedule_d_summary"
     case countryCapitalGains = "country_capital_gains"
+    /// Per-year, form-mapped filing report (e.g. Portugal Anexo J). Rendered by
+    /// the backend's country mapper; preview via GET /v1/tax/filing/preview.
+    case annualFilingPack = "annual_filing_pack"
 }
 
 public enum TaxReportFormat: String, Codable, Sendable, CaseIterable {
